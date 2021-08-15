@@ -14,12 +14,12 @@ class BaseApp extends StatelessWidget {
 
     return CupertinoApp(
       theme: const CupertinoThemeData(brightness: Brightness.light),
-      home: CupertinoStoreHomePage(),
+      home: HomePage(),
     );
   }
 }
 
-class CupertinoStoreHomePage extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
