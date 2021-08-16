@@ -1,54 +1,67 @@
+// import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sample_flutter_app/talk_row_item.dart';
 
-// import 'model/app_state_model.dart';
-// import 'product_row_item.dart';
-
-class TalkTab extends StatefulWidget {
-  @override
-  _TalkTabState createState() {
-    return _TalkTabState();
-  }
-}
-
-class _TalkTabState extends State<TalkTab> {
+class TalkTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        const CupertinoSliverNavigationBar(
-          largeTitle: Text('トーク画面'),
-        ),
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: EdgeInsets.all(10),
-            child: CupertinoSearchTextField(
-              onChanged: (String value) {
-                print('The text has changed to: $value');
-              },
-              onSubmitted: (String value) {
-                print('Submitted text: $value');
-              },
-            ),
-          ),
-        ),
-        SliverPersistentHeader(
-          delegate: _SliverHeaderDelegate(80, 50),
-          floating: false,
-          pinned: true,
-        ),
-        SliverSafeArea(
-          top: false,
-          minimum: const EdgeInsets.only(top: 8),
-          sliver: SliverList(
-            delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-              return Container(padding: EdgeInsets.all(20.0), child: Text('Row_$index'));
-            }),
-          ),
-        )
-      ],
-    );
+    return StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection("users").snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            // final List<DocumentSnapshot> documents = snapshot.data!.docs;
+            return CustomScrollView(
+              slivers: <Widget>[
+                const CupertinoSliverNavigationBar(
+                  largeTitle: Text('トーク画面'),
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: CupertinoSearchTextField(
+                      onChanged: (String value) {
+                        print('The text has changed to: $value');
+                      },
+                      onSubmitted: (String value) {
+                        print('Submitted text: $value');
+                      },
+                    ),
+                  ),
+                ),
+                SliverPersistentHeader(
+                  delegate: _SliverHeaderDelegate(80, 50),
+                  floating: false,
+                  pinned: true,
+                ),
+                SliverSafeArea(
+                  top: false,
+                  minimum: const EdgeInsets.only(top: 8),
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+                      // return TalkRowItem(
+                      //   talkRoom: snapshot.data!.docs[index],
+                      //   itemIndex: index,
+                      // );
+                      return Container(
+                        child: Text(snapshot.data!.docs[index].get('status_message')),
+                      );
+                    }, childCount: snapshot.data!.docs.length),
+                  ),
+                )
+              ],
+            );
+          } else if (!snapshot.hasData) {
+            return Text('no data');
+          } else if (snapshot.hasError) {
+            return Text('has err');
+          } else {
+            return Text('not specified');
+          }
+        });
   }
 }
 
