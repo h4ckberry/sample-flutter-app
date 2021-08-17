@@ -8,11 +8,11 @@ import 'styles.dart';
 class TalkRowItem extends StatelessWidget {
   const TalkRowItem({
     required this.talkRoom,
-    required this.itemIndex,
+    required this.lastItem,
   });
 
-  final TalkRoom talkRoom;
-  final bool itemIndex;
+  final TalkModel talkRoom;
+  final bool lastItem;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class TalkRowItem extends StatelessWidget {
       ),
     );
 
-    if (itemIndex) {
+    if (lastItem) {
       return row;
     }
 

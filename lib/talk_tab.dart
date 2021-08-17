@@ -1,20 +1,28 @@
-// import 'dart:html';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 import 'package:sample_flutter_app/talk_row_item.dart';
+import 'model/talk_room.dart';
 
 class TalkTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("users").snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            // final List<DocumentSnapshot> documents = snapshot.data!.docs;
+    return FutureBuilder<List<TalkModel>?>(
+      future: Provider.of<TalkProvider>(context, listen: false).fetchTalkData(),
+      builder: (ctx, dataSnapshot) {
+        if (dataSnapshot.connectionState == ConnectionState.waiting) {
+          // 非同期処理未完了 = 通信中
+          return Center(child: CircularProgressIndicator());
+        }
+        if (dataSnapshot.error != null) {
+          return Center(child: Text('エラーがおきました'));
+        }
+
+        return Consumer<TalkProvider>(
+          builder: (context, model, child) {
+            final talks = dataSnapshot.data!;
             return CustomScrollView(
+              semanticChildCount: talks.length,
               slivers: <Widget>[
                 const CupertinoSliverNavigationBar(
                   largeTitle: Text('トーク画面'),
@@ -41,27 +49,25 @@ class TalkTab extends StatelessWidget {
                   top: false,
                   minimum: const EdgeInsets.only(top: 8),
                   sliver: SliverList(
-                    delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-                      // return TalkRowItem(
-                      //   talkRoom: snapshot.data!.docs[index],
-                      //   itemIndex: index,
-                      // );
-                      return Container(
-                        child: Text(snapshot.data!.docs[index].get('status_message')),
-                      );
-                    }, childCount: snapshot.data!.docs.length),
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        // if (index < ) {
+                        return TalkRowItem(
+                          talkRoom: talks[index],
+                          lastItem: index == talks.length - 1,
+                        );
+                        // }
+                        // return null;
+                      },
+                    ),
                   ),
                 )
               ],
             );
-          } else if (!snapshot.hasData) {
-            return Text('no data');
-          } else if (snapshot.hasError) {
-            return Text('has err');
-          } else {
-            return Text('not specified');
-          }
-        });
+          },
+        );
+      },
+    );
   }
 }
 
