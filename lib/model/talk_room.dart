@@ -21,33 +21,41 @@ class TalkModel {
 }
 
 class TalkProvider with ChangeNotifier {
-  // late TalkModel _talkModels;
   List<TalkModel> _talkRooms = [];
 
-  List<TalkModel> get books {
+  List<TalkModel> get talks {
     return [..._talkRooms];
   }
 
   // final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<List<TalkModel>?> fetchTalkData() async {
+  Future<void> fetchTalkData() async {
     // final userId = _firebaseAuth.currentUser.uid;
     final userId = "AfYNVi2ciMDYDOP1JC3m";
     final querySnapshot = await _firestore.collection("talks").where("target_users", arrayContains: userId).get();
+    // print("===============${querySnapshot.docs.length}");
 
-    final responseTalkRooms = querySnapshot.docs
+    List<TalkModel> responseTalkRooms = [];
+
+    responseTalkRooms = querySnapshot.docs
         .map((doc) => TalkModel(
               talkId: doc['talk_id'],
               talkTitle: doc['talk_title'],
               talkIcon: doc['talk_icon'],
               isGroup: doc['is_group'],
-              targetUsers: doc['target_users'],
+              targetUsers: doc['target_users'].cast<String>() as List<String>,
               messages: doc['messages'],
             ))
         .toList();
 
-    this._talkRooms = responseTalkRooms;
+    _talkRooms = responseTalkRooms;
+    print("===============${this._talkRooms[0].talkId}");
     notifyListeners();
+    // return this._talkRooms;
+  }
+
+  List<TalkModel> getTalks() {
+    return _talkRooms;
   }
 }

@@ -11,10 +11,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   return runApp(
-    // ChangeNotifierProvider<TalkProvider>(
-    //   // create: (_) => TalkProvider()..fetchTalkData(),
-    ChangeNotifierProvider<AppStateModel>(
-      create: (_) => AppStateModel()..loadProducts(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AppStateModel>(create: (_) => AppStateModel()..loadProducts()),
+        ChangeNotifierProvider<TalkProvider>(create: (_) => TalkProvider()..fetchTalkData()),
+      ],
       child: BaseApp(),
     ),
   );
