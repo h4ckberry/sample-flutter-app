@@ -21,11 +21,15 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  google_fonts: ^2.1.0
   flutter:
     sdk: flutter
   intl: ^0.17.0
   provider: ^5.0.0
   shrine_images: ^2.0.1
+
+  flutter_native_splash: ^1.1.5+1
+  flutter_launcher_icons: any 
 
   # Add the dependency for the Firebase Core Flutter SDK
   firebase_core: ^1.4.0
@@ -37,6 +41,15 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.3
+
+flutter_native_splash:
+  image: "assets/images/sample/515x515.png"
+  color: "#06C755"
+
+flutter_icons:
+  android: true 
+  ios: true
+  image_path: "assets/images/sample/515x515.png"
 
 dev_dependencies:
   flutter_test:

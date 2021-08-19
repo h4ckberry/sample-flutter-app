@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sample_flutter_app/common/styles.dart';
+import 'home_tab.dart';
 import 'talk_tab.dart';
 import 'time_line.dart';
-import 'home_tab.dart';
 import 'news_tab.dart';
 import 'wallet_tab.dart';
 
@@ -23,28 +25,32 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.home),
-            label: 'home',
+            icon: Icon(Icons.home, size: 28),
+            title: Text("ホーム", style: googleFontRobot(9.0, FontWeight.w100, 1.0, [0,0,0])),
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.chat_bubble_text),
-            label: 'talk',
+            icon: Icon(CupertinoIcons.chat_bubble_2_fill, size: 28),
+            title: Text("トーク", style: googleFontRobot(9.0, FontWeight.w100, 1.0, [0,0,0])),
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.clock),
-            label: 'timeline',
+            icon: Icon(Icons.schedule, size: 26),
+            title: Text("タイムライン", style: googleFontRobot(9.0, FontWeight.w100, 1.0, [0,0,0])),
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.news),
-            label: 'News',
+            icon: Icon(Icons.article, size: 26),
+            title: Text("ニュース", style: googleFontRobot(9.0, FontWeight.w100, 1.0, [0,0,0])),
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.money_dollar_circle),
-            label: 'wallet',
+            icon: Icon(Icons.payment, size: 26),
+            title: Text("ウォレット", style: googleFontRobot(9.0, FontWeight.w100, 1.0, [0,0,0])),
           ),
         ],
+        backgroundColor: Color.fromRGBO(250, 250, 250, 1),
+        border: Border.all(color:Colors.white ,width: 0),
+        activeColor: Colors.black,
+        inactiveColor: Color.fromRGBO(0, 0, 0, 0.2),
       ),
       tabBuilder: (context, index) {
         late final CupertinoTabView returnValue;

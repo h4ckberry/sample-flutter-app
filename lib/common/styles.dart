@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 abstract class Styles {
   static const TextStyle productRowItemName = TextStyle(
@@ -47,4 +48,21 @@ abstract class Styles {
   static const Color searchCursorColor = Color.fromRGBO(0, 122, 255, 1);
 
   static const Color searchIconColor = Color.fromRGBO(128, 128, 128, 1);
+}
+
+
+TextStyle googleFontRobot(fontSize, weight, opacity, color) {
+  return GoogleFonts.roboto(
+      color: Color.fromRGBO(color[0], color[1], color[2], opacity),
+      fontSize: fontSize,
+      fontWeight: weight,
+    );
+}
+
+TextStyle googleFontRobotCondensed(fontSize, weight, opacity) {
+  return GoogleFonts.robotoCondensed(
+      color: Color.fromRGBO(0, 0, 0, opacity),
+      fontSize: fontSize,
+      fontWeight: weight,
+    );
 }
