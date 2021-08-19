@@ -26,8 +26,6 @@ class CupertinoStoreHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
-        backgroundColor: Color.fromRGBO(250, 250, 250, 1),
-        border: Border.all(width: 0),
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home, size: 28),
@@ -50,8 +48,10 @@ class CupertinoStoreHomePage extends StatelessWidget {
             title: Text("ウォレット", style: googleFontRobot(9.0, FontWeight.w100, 1.0, [0,0,0])),
           ),
         ],
+        backgroundColor: Color.fromRGBO(250, 250, 250, 1),
+        border: Border.all(color:Colors.white ,width: 0),
         activeColor: Colors.black,
-        inactiveColor: Color.fromRGBO(0, 0, 0, 0.4),
+        inactiveColor: Color.fromRGBO(0, 0, 0, 0.2),
       ),
       tabBuilder: (context, index) {
         late final CupertinoTabView returnValue;

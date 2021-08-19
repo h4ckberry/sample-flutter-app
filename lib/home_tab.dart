@@ -10,7 +10,13 @@ class HomeTab extends StatelessWidget {
     return Consumer<AppStateModel>(
       builder: (context, model, child) {
         final products = model.getProducts();
-        return CustomScrollView(
+        return Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/sample/background_sample.png'),
+              fit: BoxFit.cover,
+           )),
+          child: CustomScrollView(
           semanticChildCount: products.length,
           slivers: <Widget>[
             const CupertinoSliverNavigationBar(
@@ -34,7 +40,7 @@ class HomeTab extends StatelessWidget {
               ),
             )
           ],
-        );
+        ));
       },
     );
   }
