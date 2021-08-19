@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-
-import 'model/app_state_model.dart';
-import 'model/product.dart';
-import 'styles.dart';
+import 'package:sample_flutter_app/common/styles.dart';
+import 'package:sample_flutter_app/models/app_state_model.dart';
+import 'package:sample_flutter_app/models/product.dart';
 
 class ProductRowItem extends StatelessWidget {
   const ProductRowItem({

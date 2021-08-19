@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-
-import 'home_tab.dart';
 import 'talk_tab.dart';
+import 'time_line.dart';
+import 'home_tab.dart';
 import 'news_tab.dart';
 import 'wallet_tab.dart';
-import 'time_line.dart';
 
 class BaseApp extends StatelessWidget {
   @override
@@ -14,12 +13,12 @@ class BaseApp extends StatelessWidget {
 
     return CupertinoApp(
       theme: const CupertinoThemeData(brightness: Brightness.light),
-      home: CupertinoStoreHomePage(),
+      home: HomePage(),
     );
   }
 }
 
-class CupertinoStoreHomePage extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
