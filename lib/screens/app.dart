@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-
-import 'home_tab.dart';
 import 'talk_tab.dart';
+import 'time_line.dart';
+import 'home_tab.dart';
 import 'news_tab.dart';
 import 'wallet_tab.dart';
-import 'time_line.dart';
 
 class BaseApp extends StatelessWidget {
   @override

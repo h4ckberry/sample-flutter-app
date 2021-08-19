@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_flutter_app/model/talk_room.dart';
-
-import 'styles.dart';
+import 'package:sample_flutter_app/common/styles.dart';
+import 'package:sample_flutter_app/models/talk_room.dart';
 
 class TalkRowItem extends StatelessWidget {
   const TalkRowItem({
