@@ -29,7 +29,7 @@ dependencies:
   shrine_images: ^2.0.1
 
   flutter_native_splash: ^1.1.5+1
-  flutter_launcher_icons: any 
+  flutter_launcher_icons: any
 
   # Add the dependency for the Firebase Core Flutter SDK
   firebase_core: ^1.4.0
@@ -47,7 +47,7 @@ flutter_native_splash:
   color: "#06C755"
 
 flutter_icons:
-  android: true 
+  android: true
   ios: true
   image_path: "assets/images/sample/515x515.png"
 
