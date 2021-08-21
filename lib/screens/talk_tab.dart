@@ -13,6 +13,7 @@ class TalkTab extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final talks = TalksModel().mapToTalk(snapshot.data);
+
             return CustomScrollView(
               semanticChildCount: talks.length,
               slivers: <Widget>[

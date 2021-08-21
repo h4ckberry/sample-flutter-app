@@ -6,6 +6,7 @@ import 'package:sample_flutter_app/common/styles.dart';
 import 'home_tab.dart';
 import 'login_page.dart';
 import 'register_page.dart';
+import 'talk_page.dart';
 import 'talk_tab.dart';
 import 'time_line.dart';
 import 'news_tab.dart';
@@ -40,9 +41,14 @@ class _BaseAppState extends State<BaseApp> {
           '/home': (BuildContext context) => HomePage(),
           '/register': (BuildContext context) => RegisterPage(),
           '/login': (BuildContext context) => LoginPage(),
+          // '/talk': (BuildContext context) => TalkPage(),
         });
   }
 }
+
+final appRoutes = {
+  '/talk': (BuildContext context) => TalkPage(),
+};
 
 class HomePage extends StatelessWidget {
   @override
@@ -87,11 +93,13 @@ class HomePage extends StatelessWidget {
             });
             break;
           case 1:
-            returnValue = CupertinoTabView(builder: (context) {
-              return CupertinoPageScaffold(
-                child: TalkTab(),
-              );
-            });
+            returnValue = CupertinoTabView(
+                routes: appRoutes,
+                builder: (context) {
+                  return CupertinoPageScaffold(
+                    child: TalkTab(),
+                  );
+                });
             break;
           case 2:
             returnValue = CupertinoTabView(builder: (context) {
