@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sample_flutter_app/common/styles.dart';
+import 'package:sample_flutter_app/models/talk_room.dart';
 import 'home_tab.dart';
 import 'login_page.dart';
 import 'register_page.dart';

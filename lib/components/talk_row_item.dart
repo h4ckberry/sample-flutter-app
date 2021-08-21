@@ -41,7 +41,7 @@ class TalkRowItem extends StatelessWidget {
         trailing: Icon(CupertinoIcons.ellipsis),
         onTap: () {
           print("onTap called.");
-          Navigator.pushNamed(context, "/talk");
+          Navigator.pushNamed(context, "/talk", arguments: talkRoom);
         },
       ),
     );
