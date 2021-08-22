@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:cupertino_list_tile/cupertino_list_tile.dart';
 import 'package:sample_flutter_app/common/styles.dart';
 import 'package:sample_flutter_app/models/talk_room.dart';
 
@@ -24,48 +24,25 @@ class TalkRowItem extends StatelessWidget {
         bottom: 8,
         right: 8,
       ),
-      child: Row(
-        children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4),
+      child: CupertinoListTile(
+        contentPadding: EdgeInsets.all(5),
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: Container(
             child: Image.asset(
               'assets/images/sample/sample1.png',
-              fit: BoxFit.cover,
+              fit: BoxFit.fitHeight,
               width: 76,
               height: 76,
             ),
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    talkRoom.talkTitle,
-                    style: Styles.productRowItemName,
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 8)),
-                  // Text(
-                  //   '\$${talkRoom.talkId}',
-                  //   style: Styles.productRowItemPrice,
-                  // )
-                ],
-              ),
-            ),
-          ),
-          CupertinoButton(
-            padding: EdgeInsets.zero,
-            onPressed: () {
-              // 画面遷移
-            },
-            child: const Icon(
-              CupertinoIcons.plus_circled,
-              semanticLabel: 'Add',
-            ),
-          ),
-        ],
+        ),
+        title: Text(talkRoom.talkTitle),
+        trailing: Icon(CupertinoIcons.ellipsis),
+        onTap: () {
+          print("onTap called.");
+          Navigator.pushNamed(context, "/talk", arguments: talkRoom);
+        },
       ),
     );
 
