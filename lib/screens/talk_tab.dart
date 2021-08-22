@@ -11,6 +11,9 @@ class TalkTab extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection("talks").where("target_users", arrayContains: userId).snapshots(),
         builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            Center(child: CircularProgressIndicator());
+          }
           if (snapshot.hasData) {
             final talks = TalksModel().mapToTalk(snapshot.data);
 
@@ -58,7 +61,8 @@ class TalkTab extends StatelessWidget {
               ],
             );
           } else if (!snapshot.hasData) {
-            return Text('no data');
+            // return Text('no data');
+            return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Text('has err');
           } else {
