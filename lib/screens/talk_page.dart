@@ -39,16 +39,52 @@ class _TalkPageState extends State<TalkPage> {
             // Expanded(child: SingleChildScrollView(child: talkScreen())),
             Expanded(child: talkScreen()),
             Container(
-              child: CupertinoTextField(
-                keyboardType: TextInputType.multiline,
-                minLines: 1,
-                maxLength: null,
-                maxLines: 5,
-                placeholder: "input text",
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.yellow, width: 9),
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
+              padding: EdgeInsets.symmetric(vertical: 10),
+              decoration: BoxDecoration(
+                border: Border(
+                    top: const BorderSide(
+                  color: Colors.black,
+                  width: 1,
+                )),
+              ),
+              child: Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 5),
+                      Icon(CupertinoIcons.add, size: 25),
+                      SizedBox(width: 5),
+                      Icon(CupertinoIcons.photo_camera, size: 25),
+                      SizedBox(width: 5),
+                      Icon(CupertinoIcons.doc_chart, size: 25),
+                      SizedBox(width: 5),
+                    ],
+                  ),
+                  Expanded(
+                    child: CupertinoTextField(
+                      keyboardType: TextInputType.multiline,
+                      minLines: 1,
+                      maxLength: null,
+                      maxLines: 5,
+                      placeholder: "Input text",
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        border: Border.all(color: Colors.black, width: 2),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SizedBox(width: 5),
+                      Icon(CupertinoIcons.airplane, size: 25),
+                      SizedBox(width: 5),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],
