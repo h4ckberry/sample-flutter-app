@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_flutter_app/models/message.dart';
 import 'package:sample_flutter_app/models/talk_room.dart';
-import 'package:sample_flutter_app/models/user.dart';
 
 class TalkPage extends StatefulWidget {
   TalkPage({Key? key}) : super(key: key);
