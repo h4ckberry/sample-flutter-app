@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_flutter_app/models/message.dart';
 import 'package:sample_flutter_app/models/talk_room.dart';
+import 'package:sample_flutter_app/models/user.dart';
 
 class TalkPage extends StatefulWidget {
   TalkPage({Key? key}) : super(key: key);
@@ -13,6 +14,7 @@ class TalkPage extends StatefulWidget {
 }
 
 class _TalkPageState extends State<TalkPage> {
+  final userId = FirebaseAuth.instance.currentUser!.uid;
   late TalkModel _talkRoomInfo;
   initState() {}
 
@@ -119,6 +121,8 @@ class _TalkPageState extends State<TalkPage> {
                       (context, index) {
                         if (index < messages.length) {
                           return Card(
+                            margin:
+                                messages[index].postUser == userId ? EdgeInsets.only(top: 5.0, left: 90.0, bottom: 5.0, right: 8.0) : EdgeInsets.only(top: 5.0, left: 8.0, bottom: 5.0, right: 90.0),
                             child: ListTile(
                               title: Text(messages[index].content),
                               subtitle: Text(messages[index].createTime.toString()),
