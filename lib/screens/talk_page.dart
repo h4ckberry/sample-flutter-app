@@ -14,6 +14,9 @@ class TalkPage extends StatefulWidget {
 
 class _TalkPageState extends State<TalkPage> {
   final userId = FirebaseAuth.instance.currentUser!.uid;
+
+  TextEditingController _talkController = TextEditingController();
+
   late TalkModel _talkRoomInfo;
   initState() {}
 
@@ -70,6 +73,8 @@ class _TalkPageState extends State<TalkPage> {
                       maxLength: null,
                       maxLines: 5,
                       placeholder: "Input text",
+                      controller: _talkController,
+                      onSubmitted: _onTalkSubmitted,
                       decoration: BoxDecoration(
                         color: Colors.grey.shade200,
                         border: Border.all(color: Colors.black, width: 2),
@@ -81,7 +86,24 @@ class _TalkPageState extends State<TalkPage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       SizedBox(width: 5),
-                      Icon(CupertinoIcons.airplane, size: 25),
+                      // Icon(CupertinoIcons.airplane, size: 25),
+                      CupertinoButton(
+                        onPressed: () {
+                          DocumentReference<Map<String, dynamic>> posts = FirebaseFirestore.instance.collection('messages').doc();
+                          posts.set({
+                            "content": _talkController.text,
+                            "message_id": posts.id,
+                            "post_user": userId,
+                            "talk_id": _talkRoomInfo.talkId,
+                            "create_time": DateTime.now(),
+                            "update_time": DateTime.now(),
+                            "is_image": false,
+                            "image_path": "/url/base/path/storage",
+                          });
+                          _talkController.clear();
+                        },
+                        child: Icon(CupertinoIcons.airplane, size: 25),
+                      ),
                       SizedBox(width: 5),
                     ],
                   ),
@@ -94,7 +116,7 @@ class _TalkPageState extends State<TalkPage> {
 
   Widget talkScreen() {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("messages").where("talk_id", isEqualTo: _talkRoomInfo.talkId).snapshots(),
+        stream: FirebaseFirestore.instance.collection("messages").where("talk_id", isEqualTo: _talkRoomInfo.talkId).orderBy("create_time").snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             Center(child: CircularProgressIndicator());
@@ -144,5 +166,24 @@ class _TalkPageState extends State<TalkPage> {
             return Text('not specified');
           }
         });
+  }
+
+  _onTalkSubmitted(String content) {
+    // CollectionReference posts = FirebaseFirestore.instance.collection('messages');
+    // posts.add({"content": content});
+    DocumentReference<Map<String, dynamic>> posts = FirebaseFirestore.instance.collection('messages').doc();
+    posts.set({
+      "content": content,
+      "message_id": posts.id,
+      "post_user": userId,
+      "talk_id": _talkRoomInfo.talkId,
+      "create_time": DateTime.now(),
+      "update_time": DateTime.now(),
+      "is_image": false,
+      "image_path": "/url/base/path/storage",
+    });
+
+    /// 入力欄をクリアにする
+    _talkController.clear();
   }
 }

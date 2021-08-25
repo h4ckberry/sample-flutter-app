@@ -9,15 +9,17 @@ class MessageModel {
     required this.createTime,
     required this.updateTime,
     required this.isImage,
+    required this.imagePath,
   });
 
   final String messageId;
   final String content;
   final String postUser;
   final String talkId;
-  final Timestamp createTime;
-  final Timestamp updateTime;
+  final DateTime createTime;
+  final DateTime updateTime;
   final bool isImage;
+  final String imagePath;
 }
 
 class MessagesModel {
@@ -34,9 +36,10 @@ class MessagesModel {
             content: doc['content'],
             postUser: doc['post_user'],
             talkId: doc['talk_id'],
-            createTime: doc['create_time'],
-            updateTime: doc['update_time'],
-            isImage: doc['is_image']))
+            createTime: doc['create_time'].toDate(),
+            updateTime: doc['update_time'].toDate(),
+            isImage: doc['is_image'],
+            imagePath: doc['image_path']))
         .toList()
         .cast<MessageModel>();
 
