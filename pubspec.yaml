@@ -32,12 +32,12 @@ dependencies:
 
   flutter_native_splash: ^1.1.5+1
   flutter_launcher_icons: any
+  image_picker: ^0.8.3+3
 
   firebase_core: ^1.4.0
   firebase_auth: ^3.0.1
   cloud_firestore: ^2.4.0
-  # google_sign_in: ^5.0.2
-  # shared_preferences: ^2.0.6
+  google_ml_kit: ^0.7.0
 
 flutter_native_splash:
   image: "assets/images/sample/515x515.png"

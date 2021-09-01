@@ -43,5 +43,11 @@
 		<false/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+        <key>NSMicrophoneUsageDescription</key>
+        <string>Need microphone access for uploading videos</string>
+        <key>NSCameraUsageDescription</key>
+        <string>Need camera access for uploading Images</string>
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>NeedLibrary access for uploading Images</string>
 	</dict>
 </plist>

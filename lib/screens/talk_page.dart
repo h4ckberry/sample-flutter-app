@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:sample_flutter_app/models/message.dart';
 import 'package:sample_flutter_app/models/talk_room.dart';
 
@@ -16,6 +18,8 @@ class _TalkPageState extends State<TalkPage> {
   final userId = FirebaseAuth.instance.currentUser!.uid;
 
   TextEditingController _talkController = TextEditingController();
+
+  late File _image;
 
   late TalkModel _talkRoomInfo;
   initState() {}
@@ -62,7 +66,12 @@ class _TalkPageState extends State<TalkPage> {
                       SizedBox(width: 5),
                       Icon(CupertinoIcons.photo_camera, size: 25),
                       SizedBox(width: 5),
-                      Icon(CupertinoIcons.doc_chart, size: 25),
+                      CupertinoButton(
+                        child: Icon(CupertinoIcons.doc_chart, size: 25),
+                        onPressed: () {
+                          _onPickImageSelected();
+                        },
+                      ),
                       SizedBox(width: 5),
                     ],
                   ),
@@ -186,4 +195,29 @@ class _TalkPageState extends State<TalkPage> {
     /// 入力欄をクリアにする
     _talkController.clear();
   }
+
+  void _onPickImageSelected() async {
+    var imageSource = ImageSource.camera;
+
+    try {
+      final file = await ImagePicker().getImage(source: imageSource);
+      setState(() {
+        _image = File(file!.path);
+      });
+      if (file == null) {
+        throw Exception('ファイルを取得できませんでした');
+      }
+    } catch (e) {}
+  }
+
+  // void _startVerification() async {
+  //   final FirebaseVisionImage visionImage = FirebaseVisionImage.fromFile(_image);
+  //   final FaceDetector faceDetector = FirebaseVision.instance.faceDetector();
+  //   final List<Face> faces = await faceDetector.processImage(visionImage);
+  //   setState(() {
+  //     _numOfFaces = faces.length != null ? faces.length : 0;
+  //     _isFaceRecognition = faces.length > 0 ? true : false;
+  //   });
+  //   faceDetector.close();
+  // }
 }
