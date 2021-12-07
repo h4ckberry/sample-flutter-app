@@ -7,4 +7,4 @@
 
 ## Infrastructure
 See repository below
-https://github.com/koooota/iac-azure-bicep
+- https://github.com/koooota/iac-azure-bicep
