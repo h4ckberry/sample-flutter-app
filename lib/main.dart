@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'For Hack',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -22,7 +25,63 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: CameraHomePage(),
+    );
+  }
+}
+
+
+class CameraHomePage extends StatefulWidget{
+  @override 
+  _CameraHomePageState createState() => _CameraHomePageState();
+}
+
+class _CameraHomePageState extends State<CameraHomePage>{
+  late File _image = File('images/icon-192.png');
+  final picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(
+      (){
+        if(pickedFile != null){
+          _image = File(pickedFile.path);
+        }
+      }
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Image Picker Sample'),
+      ),
+      body: Center(
+        child: _image == null
+            ? Text('No image selected.')
+            : Image.file(_image),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: getImage,
+        child: Icon(Icons.add_a_photo),
+      ),
+    );
+  }
+}
+
+
+class TodoListPage extends StatelessWidget{
+  @override 
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(title: Text('リスト一覧'),),
+      body: Center(child: Text('リスト一覧画面'),),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
